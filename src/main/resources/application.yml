@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: yegu
+  datasource:
+    url: jdbc:mariadb://localhost:3306/yegu_test
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
