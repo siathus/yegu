@@ -13,10 +13,12 @@ public class WishlistService {
 
     private final WishlistRepository wishlistRepository;
 
-    public Wishlist findById(Long id) {
+    public Wishlist findByUserId(Long userId) {
         return wishlistRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 위시리스트를 찾을 수 없습니다. id = " + id));
+                .findByUserId(userId);
     }
 
+    public Long save() {
+        return wishlistRepository.save(new Wishlist()).getId();
+    }
 }
