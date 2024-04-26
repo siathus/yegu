@@ -5,6 +5,7 @@ import kr.hanghae99.yegu.domain.WishlistProduct;
 import kr.hanghae99.yegu.domain.category.Category;
 import kr.hanghae99.yegu.domain.user.entity.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -43,4 +44,14 @@ public class Product extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
+    @Builder
+    public Product(String name, int price, int stock, String description, String thumbnailUrl, Category category, ProductStatus productStatus) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.description = description;
+        this.thumbnailUrl = thumbnailUrl;
+        this.category = category;
+        this.status = productStatus;
+    }
 }
