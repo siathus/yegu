@@ -30,4 +30,8 @@ public class OrderProduct {
         this.product = product;
         this.quantity = quantity;
     }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
