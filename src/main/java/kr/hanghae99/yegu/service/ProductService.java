@@ -28,4 +28,9 @@ public class ProductService {
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품을 검색할 수 없습니다. id = " + id));
     }
+
+    @Transactional
+    public Long save(Product product) {
+        return productRepository.save(product).getId();
+    }
 }
