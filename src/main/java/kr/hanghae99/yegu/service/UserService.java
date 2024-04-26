@@ -11,11 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserService {
 
+    private final WishlistService wishlistService;
     private final UserRepository userRepository;
 
     @Transactional
     public Long signup(User user) {
-        return userRepository.save(user).getId();
+        User savedUser = userRepository.save(user);
+        Long wishlistId = wishlistService.save();
+        savedUser.addWishlist(wishlistId);
+        return savedUser.getId();
     }
 
     @Transactional
