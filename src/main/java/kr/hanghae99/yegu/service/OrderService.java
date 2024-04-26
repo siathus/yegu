@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,10 +36,26 @@ public class OrderService {
         List<Product> products = productService.findAllById(requestDto.getProducts().stream()
                 .map(OrderProductDto::getProductId).toList());
 
+        List<OrderProduct> orderProducts = new ArrayList<>();
+        int totalPrice = 0;
         for (Product product : products) {
-
+            for (OrderProductDto requestDtoProduct : requestDto.getProducts()) {
+                if (requestDtoProduct.getProductId() == product.getId()) {
+                    totalPrice += requestDtoProduct.getQuantity() * requestDtoProduct.getPrice();
+                    orderProducts.add(OrderProduct.builder()
+                            .product(product)
+                            .quantity(requestDtoProduct.getQuantity())
+                            .build());
+                    break;
+                }
+            }
         }
-
-        return null;
+        Order order = Order.builder()
+                .user(orderedUser)
+                .orderProducts(orderProducts)
+                .totalPrice(totalPrice)
+                .build();
+        Order savedOrder = orderRepository.save(order);
+        return savedOrder.getId();
     }
 }
