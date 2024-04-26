@@ -28,7 +28,15 @@ public class Category extends BaseTimeEntity {
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public Category(String name) {
+        this.name = name;
     }
 }
