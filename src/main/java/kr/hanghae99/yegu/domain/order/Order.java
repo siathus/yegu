@@ -34,6 +34,11 @@ public class Order extends BaseTimeEntity {
 
     private LocalDateTime deliveredAt;
 
+    public void addOrderProduct(OrderProduct orderProduct) {
+        this.orderProducts.add(orderProduct);
+        orderProduct.setOrder(this);
+    }
+
     @Builder
     public Order(User user, List<OrderProduct> orderProducts, int totalPrice) {
         this.user = user;
@@ -44,5 +49,9 @@ public class Order extends BaseTimeEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
     }
 }
