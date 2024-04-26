@@ -53,6 +53,12 @@ public class User extends BaseTimeEntity {
 
     private LocalDateTime withdrawedAt;
 
+    public void addWishlist(Long wishlistId) {
+        this.wishlist = Wishlist.builder()
+                .id(wishlistId)
+                .build();
+    }
+
     @Builder
     public User(String email, String password, String name, String phone, String postalCode, String addressStreet, String addressDetail) {
         this.email = email;
