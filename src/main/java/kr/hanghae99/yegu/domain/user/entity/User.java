@@ -59,6 +59,13 @@ public class User extends BaseTimeEntity {
                 .build();
     }
 
+    public void updateInfo(String postalCode, String addressStreet, String addressDetail, String phone) {
+        this.postalCode = postalCode;
+        this.addressStreet = addressStreet;
+        this.addressDetail = addressDetail;
+        this.phone = phone;
+    }
+
     @Builder
     public User(String email, String password, String name, String phone, String postalCode, String addressStreet, String addressDetail) {
         this.email = email;
@@ -72,5 +79,13 @@ public class User extends BaseTimeEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
