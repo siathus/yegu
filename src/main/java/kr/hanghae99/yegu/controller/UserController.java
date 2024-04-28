@@ -1,8 +1,9 @@
 package kr.hanghae99.yegu.controller;
 
+import kr.hanghae99.yegu.dto.SuccessResponseDto;
+import kr.hanghae99.yegu.dto.UserChangePasswordRequestDto;
 import kr.hanghae99.yegu.dto.UserSignupRequestDto;
-import kr.hanghae99.yegu.dto.UserUpdateRequestDto;
-import kr.hanghae99.yegu.dto.UserUpdateResponseDto;
+import kr.hanghae99.yegu.dto.UserUpdateInfoRequestDto;
 import kr.hanghae99.yegu.service.EncryptionService;
 import kr.hanghae99.yegu.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,15 @@ public class UserController {
         return ResponseEntity.ok("회원가입 완료!");
     }
 
-    @PutMapping("/")
-    public ResponseEntity<UserUpdateResponseDto> update(@RequestBody UserUpdateRequestDto updateRequestDto) {
-        return null;
+    @PutMapping("/info")
+    public SuccessResponseDto updateInfo(@RequestBody UserUpdateInfoRequestDto updateInfoRequestDto) {
+        userService.updateInfo(updateInfoRequestDto);
+        return new SuccessResponseDto(true);
+    }
+
+    @PutMapping("/password")
+    public SuccessResponseDto changePassword(@RequestBody UserChangePasswordRequestDto passwordRequestDto) {
+        userService.changePassword(passwordRequestDto);
+        return new SuccessResponseDto(true);
     }
 }
