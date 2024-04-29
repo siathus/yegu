@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class WishlistResponseDto {
-    private Long wishlistId;
+    private Long userId;
     private List<WishlistProductResponseDto> products = new ArrayList<>();
 }

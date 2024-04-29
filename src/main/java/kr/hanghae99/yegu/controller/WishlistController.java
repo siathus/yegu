@@ -1,25 +1,34 @@
 package kr.hanghae99.yegu.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.hanghae99.yegu.domain.wishlist.Wishlist;
+import kr.hanghae99.yegu.dto.AddWishlistRequestDto;
+import kr.hanghae99.yegu.dto.SuccessResponseDto;
 import kr.hanghae99.yegu.dto.WishlistProductResponseDto;
 import kr.hanghae99.yegu.dto.WishlistResponseDto;
 import kr.hanghae99.yegu.service.WishlistService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
-@RestController("/wishlist")
+@RequestMapping("/wishlist")
+@RestController
 public class WishlistController {
 
     private final WishlistService wishlistService;
 
-
     // TODO: 로그인 기능 구현 후 PathVariable 대신 유저 인증 정보로 userId 가져오기
     @GetMapping("/{userId}")
-    public WishlistResponseDto getWishlist(@PathVariable Long userId) {
-        Wishlist wishlist = wishlistService.findByUserId(userId);
-        
+    public WishlistResponseDto getWishlist(@PathVariable Long userId, HttpServletRequest request) {
+        String host = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        return wishlistService.getWishlist(userId, host);
+    }
+
+    @PostMapping("")
+    public SuccessResponseDto addProductToWishlist(@RequestBody AddWishlistRequestDto requestDto) {
+        wishlistService.addProductToWishlist(requestDto);
+        return new SuccessResponseDto(true);
     }
 }

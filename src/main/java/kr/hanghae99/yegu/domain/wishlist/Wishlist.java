@@ -16,15 +16,16 @@ public class Wishlist {
     @Column(name = "wishlist_id")
     private Long id;
 
-    @OneToOne(mappedBy = "wishlist")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "wishlist")
+    @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL)
     private List<WishlistProduct> wishlistProducts = new ArrayList<>();
 
     @Builder
-    public Wishlist(Long id) {
-        this.id = id;
+    public Wishlist(User user) {
+        this.user = user;
     }
 
     public Long getId() {

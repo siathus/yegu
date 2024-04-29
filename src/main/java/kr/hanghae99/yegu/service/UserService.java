@@ -23,8 +23,7 @@ public class UserService {
     @Transactional
     public Long signup(User user) {
         User savedUser = userRepository.save(user);
-        Long wishlistId = wishlistService.save();
-        savedUser.addWishlist(wishlistId);
+        wishlistService.save(savedUser);
         return savedUser.getId();
     }
 
