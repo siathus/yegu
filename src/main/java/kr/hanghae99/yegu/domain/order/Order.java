@@ -38,6 +38,16 @@ public class Order extends BaseTimeEntity {
         this.orderProducts = orderProducts;
     }
 
+    public void cancelOrder() {
+        if (deliveredAt == null || status != OrderStatus.ORDERED) {
+            throw new IllegalStateException("취소가 불가능한 상태입니다");
+        }
+        this.status = OrderStatus.CANCELLED;
+        for (OrderProduct orderProduct : orderProducts) {
+            orderProduct.cancelOrder();
+        }
+    }
+
     @Builder
     public Order(User user, OrderStatus status) {
         this.user = user;

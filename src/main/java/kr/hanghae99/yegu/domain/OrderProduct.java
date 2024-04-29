@@ -35,4 +35,8 @@ public class OrderProduct {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    public void cancelOrder() {
+        product.restoreStock(quantity);
+    }
 }
