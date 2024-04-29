@@ -3,10 +3,7 @@ package kr.hanghae99.yegu.domain.user.entity;
 import jakarta.persistence.*;
 import kr.hanghae99.yegu.domain.order.Order;
 import kr.hanghae99.yegu.domain.wishlist.Wishlist;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
@@ -24,7 +21,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 250)
     private String password;
 
     @Column(nullable = false)
@@ -44,20 +41,13 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wishlist_id")
+    @OneToOne(mappedBy = "user")
     private Wishlist wishlist;
 
     @ColumnDefault("false")
     private Boolean withdraw;
 
     private LocalDateTime withdrawedAt;
-
-    public void addWishlist(Long wishlistId) {
-        this.wishlist = Wishlist.builder()
-                .id(wishlistId)
-                .build();
-    }
 
     public void updateInfo(String postalCode, String addressStreet, String addressDetail, String phone) {
         this.postalCode = postalCode;
