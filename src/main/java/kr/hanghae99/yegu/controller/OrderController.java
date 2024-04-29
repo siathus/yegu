@@ -20,4 +20,10 @@ public class OrderController {
     public List<OrderResponseDto> getOrderList(@PathVariable Long userId) {
         return orderService.findAllByUserId(userId);
     }
+
+    @PostMapping("/{orderId}")
+    public SuccessResponseDto cancelOrder(@PathVariable Long orderId) {
+        orderService.cancelOrder(orderId);
+        return new SuccessResponseDto(true);
+    }
 }

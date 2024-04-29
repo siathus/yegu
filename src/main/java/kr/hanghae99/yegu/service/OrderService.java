@@ -77,4 +77,12 @@ public class OrderService {
         Order savedOrder = orderRepository.save(order);
         return savedOrder.getId();
     }
+
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository
+                .findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException());
+        order.cancelOrder();
+    }
 }
