@@ -26,4 +26,10 @@ public class OrderController {
         orderService.cancelOrder(orderId);
         return new SuccessResponseDto(true);
     }
+
+    @PostMapping("/refund/{orderId}")
+    public SuccessResponseDto requestRefundOrder(@PathVariable Long orderId) {
+        orderService.requestReturn(orderId);
+        return new SuccessResponseDto(true);
+    }
 }

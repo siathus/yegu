@@ -38,6 +38,30 @@ public class Order extends BaseTimeEntity {
         this.orderProducts = orderProducts;
     }
 
+    public void startDelivery() {
+        this.status = OrderStatus.DELIVERY_START;
+    }
+
+    public void completeDelivery() {
+        this.status = OrderStatus.DELIVERED;
+        this.deliveredAt = LocalDateTime.now();
+    }
+
+    public void requestReturn() {
+        LocalDateTime limitTime = LocalDateTime.now().minusHours(24);
+        if (this.status != OrderStatus.DELIVERED || deliveredAt.isBefore(limitTime)) {
+            throw new IllegalStateException("배송 완료된 후 24시간 전에만 반품 가능");
+        }
+        this.status = OrderStatus.RETURN_REQUESTED;
+    }
+
+    public void completeReturn() {
+        this.status = OrderStatus.RETURN_COMPLETED;
+        for (OrderProduct orderProduct : orderProducts) {
+            orderProduct.refundOrder();
+        }
+    }
+
     public void cancelOrder() {
         if (deliveredAt == null || status != OrderStatus.ORDERED) {
             throw new IllegalStateException("취소가 불가능한 상태입니다");
@@ -68,5 +92,9 @@ public class Order extends BaseTimeEntity {
 
     public OrderStatus getStatus() {
         return status;
+    }
+
+    public LocalDateTime getDeliveredAt() {
+        return deliveredAt;
     }
 }

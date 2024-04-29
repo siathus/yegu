@@ -39,4 +39,8 @@ public class OrderProduct {
     public void cancelOrder() {
         product.restoreStock(quantity);
     }
+
+    public void refundOrder() {
+        product.restoreStock(quantity);
+    }
 }

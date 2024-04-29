@@ -37,6 +37,10 @@ public class OrderService {
                 .toList();
     }
 
+    public List<Order> findAllByOrderStatus(OrderStatus orderStatus) {
+        return orderRepository.findAllByOrderStatus(orderStatus);
+    }
+
     public Order findById(Long id) {
         return orderRepository
                 .findById(id)
@@ -84,5 +88,23 @@ public class OrderService {
                 .findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException());
         order.cancelOrder();
+    }
+
+    @Transactional
+    public void requestReturn(Long orderId) {
+        Order order = orderRepository
+                .findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException());
+        order.requestReturn();
+    }
+
+    @Transactional
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
+    @Transactional
+    public void saveAll(List<Order> orders) {
+        orderRepository.saveAll(orders);
     }
 }
