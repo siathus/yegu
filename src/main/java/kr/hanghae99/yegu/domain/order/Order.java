@@ -34,24 +34,29 @@ public class Order extends BaseTimeEntity {
 
     private LocalDateTime deliveredAt;
 
-    public void addOrderProduct(OrderProduct orderProduct) {
-        this.orderProducts.add(orderProduct);
-        orderProduct.setOrder(this);
+    public void addOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 
     @Builder
-    public Order(User user, List<OrderProduct> orderProducts, int totalPrice) {
+    public Order(User user, OrderStatus status) {
         this.user = user;
-        this.orderProducts = orderProducts;
-        this.totalPrice = totalPrice;
-        this.status = OrderStatus.ORDERED;
+        this.status = status;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public int getTotalPrice() {
         return totalPrice;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
     }
 }

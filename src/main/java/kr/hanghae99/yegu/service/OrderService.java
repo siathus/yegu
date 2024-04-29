@@ -2,10 +2,12 @@ package kr.hanghae99.yegu.service;
 
 import kr.hanghae99.yegu.domain.OrderProduct;
 import kr.hanghae99.yegu.domain.order.Order;
+import kr.hanghae99.yegu.domain.order.OrderStatus;
 import kr.hanghae99.yegu.domain.product.Product;
 import kr.hanghae99.yegu.domain.user.entity.User;
 import kr.hanghae99.yegu.dto.OrderProductDto;
 import kr.hanghae99.yegu.dto.OrderRequestDto;
+import kr.hanghae99.yegu.dto.OrderResponseDto;
 import kr.hanghae99.yegu.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,17 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    public List<OrderResponseDto> findAllByUserId(Long userId) {
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        return orders.stream()
+                .map(order -> OrderResponseDto.builder()
+                        .orderId(order.getId())
+                        .totalPrice(order.getTotalPrice())
+                        .status(order.getStatus())
+                        .build())
+                .toList();
+    }
+
     public Order findById(Long id) {
         return orderRepository
                 .findById(id)
@@ -36,25 +49,31 @@ public class OrderService {
         List<Product> products = productService.findAllById(requestDto.getProducts().stream()
                 .map(OrderProductDto::getProductId).toList());
 
+        Order order = Order.builder()
+                .user(orderedUser)
+                .status(OrderStatus.ORDERED)
+                .build();
+
         List<OrderProduct> orderProducts = new ArrayList<>();
         int totalPrice = 0;
         for (Product product : products) {
             for (OrderProductDto requestDtoProduct : requestDto.getProducts()) {
                 if (requestDtoProduct.getProductId() == product.getId()) {
-                    totalPrice += requestDtoProduct.getQuantity() * requestDtoProduct.getPrice();
-                    orderProducts.add(OrderProduct.builder()
+                    totalPrice += requestDtoProduct.getQuantity() * product.getPrice();
+                    OrderProduct orderProduct = OrderProduct.builder()
+                            .order(order)
                             .product(product)
                             .quantity(requestDtoProduct.getQuantity())
-                            .build());
+                            .build();
+                    orderProducts.add(orderProduct);
+                    product.sell(requestDtoProduct.getQuantity());
                     break;
                 }
             }
         }
-        Order order = Order.builder()
-                .user(orderedUser)
-                .orderProducts(orderProducts)
-                .totalPrice(totalPrice)
-                .build();
+        order.setTotalPrice(totalPrice);
+        order.addOrderProducts(orderProducts);
+
         Order savedOrder = orderRepository.save(order);
         return savedOrder.getId();
     }
