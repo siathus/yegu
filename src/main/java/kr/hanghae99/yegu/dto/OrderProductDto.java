@@ -14,7 +14,6 @@ public class OrderProductDto {
     @NotNull
     private Long productId;
 
-    private int price;
     @Min(1)
     private int quantity;
 }
