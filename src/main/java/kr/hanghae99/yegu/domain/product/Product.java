@@ -54,4 +54,8 @@ public class Product extends BaseTimeEntity {
         this.category = category;
         this.status = productStatus;
     }
+
+    public void sell(int quantity) {
+        this.stock -= quantity;
+    }
 }
