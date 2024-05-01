@@ -1,4 +1,4 @@
 rootProject.name = 'yegu'
-include 'monolithic-service-1'
-include 'monolithic-service-2'
-include 'monolithic-service-3'
+include 'user-service'
+include 'order-service'
+include 'product-service'
