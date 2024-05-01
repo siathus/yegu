@@ -1,4 +1,4 @@
-package kr.hanghae99.yegu.domain.user.entity;
+package kr.hanghae99.yegu.domain;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

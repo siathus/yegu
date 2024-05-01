@@ -1,8 +1,8 @@
 package kr.hanghae99.yegu.domain.category;
 
 import jakarta.persistence.*;
+import kr.hanghae99.yegu.domain.BaseTimeEntity;
 import kr.hanghae99.yegu.domain.product.Product;
-import kr.hanghae99.yegu.domain.user.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
