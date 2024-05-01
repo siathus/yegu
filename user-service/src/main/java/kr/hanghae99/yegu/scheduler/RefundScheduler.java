@@ -2,7 +2,6 @@ package kr.hanghae99.yegu.scheduler;
 
 import kr.hanghae99.yegu.domain.order.Order;
 import kr.hanghae99.yegu.domain.order.OrderStatus;
-import kr.hanghae99.yegu.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

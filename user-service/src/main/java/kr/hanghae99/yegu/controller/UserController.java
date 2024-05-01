@@ -1,6 +1,5 @@
 package kr.hanghae99.yegu.controller;
 
-import kr.hanghae99.yegu.dto.SuccessResponseDto;
 import kr.hanghae99.yegu.dto.UserChangePasswordRequestDto;
 import kr.hanghae99.yegu.dto.UserSignupRequestDto;
 import kr.hanghae99.yegu.dto.UserUpdateInfoRequestDto;

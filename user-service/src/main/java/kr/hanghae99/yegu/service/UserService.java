@@ -17,13 +17,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final EncryptionService encryptionService;
-    private final WishlistService wishlistService;
+//    private final WishlistService wishlistService;
     private final UserRepository userRepository;
 
     @Transactional
     public Long signup(User user) {
         User savedUser = userRepository.save(user);
-        wishlistService.save(savedUser);
+//        wishlistService.save(savedUser);
         return savedUser.getId();
     }
 
