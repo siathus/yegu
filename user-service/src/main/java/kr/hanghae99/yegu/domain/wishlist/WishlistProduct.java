@@ -1,7 +1,6 @@
-package kr.hanghae99.yegu.domain;
+package kr.hanghae99.yegu.domain.wishlist;
 
 import jakarta.persistence.*;
-import kr.hanghae99.yegu.domain.wishlist.Wishlist;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

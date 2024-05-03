@@ -1,7 +1,6 @@
 package kr.hanghae99.yegu.domain.wishlist;
 
 import jakarta.persistence.*;
-import kr.hanghae99.yegu.domain.WishlistProduct;
 import kr.hanghae99.yegu.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -31,5 +30,9 @@ public class Wishlist {
 
     public Long getId() {
         return id;
+    }
+
+    public List<WishlistProduct> getWishlistProducts() {
+        return wishlistProducts;
     }
 }
