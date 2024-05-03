@@ -1,6 +1,6 @@
 package kr.hanghae99.yegu.service;
 
-import kr.hanghae99.yegu.domain.user.entity.User;
+import kr.hanghae99.yegu.domain.user.User;
 import kr.hanghae99.yegu.dto.UserChangePasswordRequestDto;
 import kr.hanghae99.yegu.dto.UserUpdateInfoRequestDto;
 import kr.hanghae99.yegu.repository.UserRepository;
@@ -17,13 +17,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final EncryptionService encryptionService;
-//    private final WishlistService wishlistService;
+    private final WishlistService wishlistService;
     private final UserRepository userRepository;
 
     @Transactional
     public Long signup(User user) {
         User savedUser = userRepository.save(user);
-//        wishlistService.save(savedUser);
+        wishlistService.save(savedUser);
         return savedUser.getId();
     }
 

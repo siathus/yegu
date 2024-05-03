@@ -1,6 +1,6 @@
 package kr.hanghae99.yegu.repository;
 
-import kr.hanghae99.yegu.domain.user.entity.User;
+import kr.hanghae99.yegu.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

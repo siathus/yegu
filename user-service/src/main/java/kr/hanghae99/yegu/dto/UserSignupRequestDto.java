@@ -1,7 +1,7 @@
 package kr.hanghae99.yegu.dto;
 
 import jakarta.validation.constraints.Email;
-import kr.hanghae99.yegu.domain.user.entity.User;
+import kr.hanghae99.yegu.domain.user.User;
 import kr.hanghae99.yegu.service.EncryptionService;
 import lombok.Getter;
 import lombok.Setter;

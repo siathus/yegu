@@ -1,13 +1,12 @@
 package kr.hanghae99.yegu.repository;
 
-import kr.hanghae99.yegu.domain.user.entity.User;
+import kr.hanghae99.yegu.domain.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
 @DataJpaTest
