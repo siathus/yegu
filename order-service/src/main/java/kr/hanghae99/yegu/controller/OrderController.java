@@ -3,6 +3,7 @@ package kr.hanghae99.yegu.controller;
 import kr.hanghae99.yegu.dto.OrderResponseDto;
 import kr.hanghae99.yegu.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +22,14 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}")
-    public SuccessResponseDto cancelOrder(@PathVariable Long orderId) {
+    public ResponseEntity<String> cancelOrder(@PathVariable Long orderId) {
         orderService.cancelOrder(orderId);
-        return new SuccessResponseDto(true);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/refund/{orderId}")
-    public SuccessResponseDto requestRefundOrder(@PathVariable Long orderId) {
+    public ResponseEntity<String> requestRefundOrder(@PathVariable Long orderId) {
         orderService.requestReturn(orderId);
-        return new SuccessResponseDto(true);
+        return ResponseEntity.ok().build();
     }
 }
