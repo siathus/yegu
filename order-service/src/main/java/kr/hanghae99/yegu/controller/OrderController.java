@@ -1,7 +1,6 @@
 package kr.hanghae99.yegu.controller;
 
 import kr.hanghae99.yegu.dto.OrderResponseDto;
-import kr.hanghae99.yegu.dto.SuccessResponseDto;
 import kr.hanghae99.yegu.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

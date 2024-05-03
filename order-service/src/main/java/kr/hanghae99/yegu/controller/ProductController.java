@@ -1,8 +1,5 @@
 package kr.hanghae99.yegu.controller;
 
-import kr.hanghae99.yegu.dto.ProductListResponseDto;
-import kr.hanghae99.yegu.dto.ProductResponseDto;
-import kr.hanghae99.yegu.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

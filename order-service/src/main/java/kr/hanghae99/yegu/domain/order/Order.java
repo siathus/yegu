@@ -1,9 +1,8 @@
 package kr.hanghae99.yegu.domain.order;
 
 import jakarta.persistence.*;
+import kr.hanghae99.yegu.domain.BaseTimeEntity;
 import kr.hanghae99.yegu.domain.OrderProduct;
-import kr.hanghae99.yegu.domain.user.entity.BaseTimeEntity;
-import kr.hanghae99.yegu.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -19,9 +18,8 @@ public class Order extends BaseTimeEntity {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column
+    private Long userId;
 
     @OneToMany(mappedBy = "order")
     private List<OrderProduct> orderProducts = new ArrayList<>();
@@ -32,6 +30,7 @@ public class Order extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Column
     private LocalDateTime deliveredAt;
 
     public void addOrderProducts(List<OrderProduct> orderProducts) {
@@ -73,8 +72,8 @@ public class Order extends BaseTimeEntity {
     }
 
     @Builder
-    public Order(User user, OrderStatus status) {
-        this.user = user;
+    public Order(Long userId, OrderStatus status) {
+        this.userId = userId;
         this.status = status;
     }
 

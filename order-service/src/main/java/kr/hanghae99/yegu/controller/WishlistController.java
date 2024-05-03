@@ -1,12 +1,6 @@
 package kr.hanghae99.yegu.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import kr.hanghae99.yegu.domain.wishlist.Wishlist;
-import kr.hanghae99.yegu.dto.AddWishlistRequestDto;
-import kr.hanghae99.yegu.dto.SuccessResponseDto;
-import kr.hanghae99.yegu.dto.WishlistProductResponseDto;
-import kr.hanghae99.yegu.dto.WishlistResponseDto;
-import kr.hanghae99.yegu.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

@@ -1,11 +1,5 @@
 package kr.hanghae99.yegu.controller;
 
-import kr.hanghae99.yegu.dto.SuccessResponseDto;
-import kr.hanghae99.yegu.dto.UserChangePasswordRequestDto;
-import kr.hanghae99.yegu.dto.UserSignupRequestDto;
-import kr.hanghae99.yegu.dto.UserUpdateInfoRequestDto;
-import kr.hanghae99.yegu.service.EncryptionService;
-import kr.hanghae99.yegu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,6 @@ package kr.hanghae99.yegu.domain;
 
 import jakarta.persistence.*;
 import kr.hanghae99.yegu.domain.order.Order;
-import kr.hanghae99.yegu.domain.product.Product;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -19,16 +18,16 @@ public class OrderProduct {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column
+    private Long productId;
 
+    @Column
     private int quantity;
 
     @Builder
-    public OrderProduct(Order order, Product product, int quantity) {
+    public OrderProduct(Order order, Long productId, int quantity) {
         this.order = order;
-        this.product = product;
+        this.productId = productId;
         this.quantity = quantity;
     }
 
@@ -37,10 +36,12 @@ public class OrderProduct {
     }
 
     public void cancelOrder() {
-        product.restoreStock(quantity);
+        // TODO: 주문 취소 로직 구현
+//        product.restoreStock(quantity);
     }
 
     public void refundOrder() {
-        product.restoreStock(quantity);
+        // TODO: 반품 로직 구현
+//        product.restoreStock(quantity);
     }
 }
