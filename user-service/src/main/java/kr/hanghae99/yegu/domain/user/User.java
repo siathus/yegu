@@ -1,14 +1,12 @@
-package kr.hanghae99.yegu.domain.user.entity;
+package kr.hanghae99.yegu.domain.user;
 
 import jakarta.persistence.*;
-import kr.hanghae99.yegu.domain.order.Order;
+import kr.hanghae99.yegu.domain.BaseTimeEntity;
 import kr.hanghae99.yegu.domain.wishlist.Wishlist;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,9 +35,6 @@ public class User extends BaseTimeEntity {
     private String addressStreet;
 
     private String addressDetail;
-
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private Wishlist wishlist;
