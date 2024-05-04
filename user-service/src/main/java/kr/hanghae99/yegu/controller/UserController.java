@@ -26,18 +26,18 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody UserSignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto.toEntity(passwordEncoder, encryptionService));
-        return ResponseEntity.ok("회원가입 완료!");
+        return ResponseEntity.ok("회원가입 완료");
     }
 
     @PutMapping("/info")
-    public SuccessResponseDto updateInfo(@RequestBody UserUpdateInfoRequestDto updateInfoRequestDto) {
+    public ResponseEntity<String> updateInfo(@RequestBody UserUpdateInfoRequestDto updateInfoRequestDto) {
         userService.updateInfo(updateInfoRequestDto);
-        return new SuccessResponseDto(true);
+        return ResponseEntity.ok("회원정보 수정 완료");
     }
 
     @PutMapping("/password")
-    public SuccessResponseDto changePassword(@RequestBody UserChangePasswordRequestDto passwordRequestDto) {
+    public ResponseEntity<String> changePassword(@RequestBody UserChangePasswordRequestDto passwordRequestDto) {
         userService.changePassword(passwordRequestDto);
-        return new SuccessResponseDto(true);
+        return ResponseEntity.ok("비밀번호 수정 완료");
     }
 }
