@@ -2,6 +2,7 @@ package kr.hanghae99.yegu.service;
 
 import kr.hanghae99.yegu.domain.user.User;
 import kr.hanghae99.yegu.dto.UserChangePasswordRequestDto;
+import kr.hanghae99.yegu.dto.UserResponseDto;
 import kr.hanghae99.yegu.dto.UserUpdateInfoRequestDto;
 import kr.hanghae99.yegu.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,10 +41,11 @@ public class UserService {
         user.updateInfo(encryptedPostalCode, encryptedAddressStreet, encryptedAddressDetail, encryptedPhone);
     }
 
-    public User findById(Long id) {
-        return userRepository
+    public UserResponseDto findById(Long id) {
+        User user = userRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException());
+        return new UserResponseDto(user);
     }
 
     @Transactional

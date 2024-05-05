@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
+@Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "users")
