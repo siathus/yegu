@@ -1,5 +1,6 @@
 package kr.hanghae99.yegu.service;
 
+import kr.hanghae99.yegu.controller.dto.ProductFeignResponseDto;
 import kr.hanghae99.yegu.domain.product.Product;
 import kr.hanghae99.yegu.dto.ProductAddRequestDto;
 import kr.hanghae99.yegu.repository.ProductRepository;
@@ -20,8 +21,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> findAllById(List<Long> productIds) {
-        return productRepository.findAllById(productIds);
+    public List<ProductFeignResponseDto> findAllById(List<Long> productIds) {
+        return productRepository.findAllById(productIds)
+                .stream()
+                .map(ProductFeignResponseDto::new)
+                .toList();
     }
 
     public Product findById(Long id) {
