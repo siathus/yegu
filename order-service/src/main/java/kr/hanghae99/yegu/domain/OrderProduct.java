@@ -44,4 +44,12 @@ public class OrderProduct {
         // TODO: 반품 로직 구현
 //        product.restoreStock(quantity);
     }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

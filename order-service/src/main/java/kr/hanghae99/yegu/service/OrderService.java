@@ -1,5 +1,7 @@
 package kr.hanghae99.yegu.service;
 
+import kr.hanghae99.yegu.controller.dto.OrderFeignResponseDto;
+import kr.hanghae99.yegu.controller.dto.OrderProductFeignResponseDto;
 import kr.hanghae99.yegu.domain.OrderProduct;
 import kr.hanghae99.yegu.domain.order.Order;
 import kr.hanghae99.yegu.domain.order.OrderStatus;
@@ -7,12 +9,16 @@ import kr.hanghae99.yegu.dto.OrderProductDto;
 import kr.hanghae99.yegu.dto.OrderRequestDto;
 import kr.hanghae99.yegu.dto.OrderResponseDto;
 import kr.hanghae99.yegu.repository.OrderRepository;
+import kr.hanghae99.yegu.service.client.ProductFeignClient;
+import kr.hanghae99.yegu.service.client.dto.ProductFeignResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -20,6 +26,8 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+
+    private final ProductFeignClient productFeignClient;
 
     public List<OrderResponseDto> findAllByUserId(Long userId) {
         List<Order> orders = orderRepository.findAllByUserId(userId);
@@ -30,6 +38,35 @@ public class OrderService {
                         .status(order.getStatus())
                         .build())
                 .toList();
+    }
+
+    public List<OrderFeignResponseDto> getAllOrdersByUserId(Long userId) {
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        List<OrderFeignResponseDto> orderFeignResponseDtos = new ArrayList<>();
+        for (Order order : orders) {
+            List<Long> productIds = order.getOrderProducts().stream()
+                    .map(orderProduct -> orderProduct.getProductId())
+                    .toList();
+
+            List<ProductFeignResponseDto> productFeignResponseDtos = productFeignClient.findAllByProductIds(productIds);
+            Map<Long, ProductFeignResponseDto> productIdMap = productFeignResponseDtos.stream()
+                    .collect(Collectors.toMap(p -> p.getProductId(), p -> p));
+
+            List<OrderProductFeignResponseDto> orderProductFeignResponseDtos = new ArrayList<>();
+            order.getOrderProducts().stream()
+                    .forEach(op -> orderProductFeignResponseDtos.add(
+                            new OrderProductFeignResponseDto(
+                                    productIdMap.get(op.getProductId()), op.getQuantity())));
+
+            orderFeignResponseDtos.add(OrderFeignResponseDto.builder()
+                    .orderId(order.getId())
+                    .orderProducts(orderProductFeignResponseDtos)
+                    .totalPrice(order.getTotalPrice())
+                    .status(order.getStatus().name())
+                    .deliveredAt(order.getDeliveredAt())
+                    .build());
+        }
+        return orderFeignResponseDtos;
     }
 
     public List<Order> findAllByOrderStatus(OrderStatus orderStatus) {
