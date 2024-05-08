@@ -81,38 +81,38 @@ public class OrderService {
 
     @Transactional
     public Long purchaseProduct(OrderRequestDto requestDto) {
-//        User orderedUser = userService.findById(requestDto.getUserId());
-//        List<Product> products = productService.findAllById(requestDto.getProducts().stream()
-//                .map(OrderProductDto::getProductId).toList());
-//
-//        Order order = Order.builder()
-//                .user(orderedUser)
-//                .status(OrderStatus.ORDERED)
-//                .build();
-//
-//        List<OrderProduct> orderProducts = new ArrayList<>();
-//        int totalPrice = 0;
-//        for (Product product : products) {
-//            for (OrderProductDto requestDtoProduct : requestDto.getProducts()) {
-//                if (requestDtoProduct.getProductId() == product.getId()) {
-//                    totalPrice += requestDtoProduct.getQuantity() * product.getPrice();
-//                    OrderProduct orderProduct = OrderProduct.builder()
-//                            .order(order)
-//                            .product(product)
-//                            .quantity(requestDtoProduct.getQuantity())
-//                            .build();
-//                    orderProducts.add(orderProduct);
+        List<ProductFeignResponseDto> products = productFeignClient.findAllByProductIds(requestDto.getProducts().stream()
+                .map(OrderProductDto::getProductId)
+                .toList());
+
+        Order order = Order.builder()
+                .userId(requestDto.getUserId())
+                .status(OrderStatus.ORDERED)
+                .build();
+
+        List<OrderProduct> orderProducts = new ArrayList<>();
+        int totalPrice = 0;
+        for (ProductFeignResponseDto product : products) {
+            for (OrderProductDto requestDtoProduct : requestDto.getProducts()) {
+                if (requestDtoProduct.getProductId() == product.getProductId()) {
+                    totalPrice += requestDtoProduct.getQuantity() * product.getPrice();
+                    OrderProduct orderProduct = OrderProduct.builder()
+                            .order(order)
+                            .productId(product.getProductId())
+                            .quantity(requestDtoProduct.getQuantity())
+                            .build();
+                    orderProducts.add(orderProduct);
+                    // TODO: 상품 재고 감소
 //                    product.sell(requestDtoProduct.getQuantity());
-//                    break;
-//                }
-//            }
-//        }
-//        order.setTotalPrice(totalPrice);
-//        order.addOrderProducts(orderProducts);
-//
-//        Order savedOrder = orderRepository.save(order);
-//        return savedOrder.getId();
-        return 0L;
+                    break;
+                }
+            }
+        }
+        order.setTotalPrice(totalPrice);
+        order.addOrderProducts(orderProducts);
+
+        Order savedOrder = orderRepository.save(order);
+        return savedOrder.getId();
     }
 
     @Transactional
