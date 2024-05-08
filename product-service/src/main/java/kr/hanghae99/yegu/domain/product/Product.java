@@ -1,16 +1,13 @@
 package kr.hanghae99.yegu.domain.product;
 
 import jakarta.persistence.*;
-import kr.hanghae99.yegu.domain.WishlistProduct;
+import kr.hanghae99.yegu.domain.BaseTimeEntity;
 import kr.hanghae99.yegu.domain.category.Category;
-import kr.hanghae99.yegu.domain.user.entity.BaseTimeEntity;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,9 +34,6 @@ public class Product extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @OneToMany(mappedBy = "product")
-    private List<WishlistProduct> wishlistProducts = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;

@@ -12,4 +12,5 @@ public class ProductFeignResponseDto {
     private int price;
     private String thumbnailUrl;
     private String categoryName;
+    private int stock;
 }

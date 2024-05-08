@@ -89,6 +89,10 @@ public class Order extends BaseTimeEntity {
         return totalPrice;
     }
 
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
     public OrderStatus getStatus() {
         return status;
     }

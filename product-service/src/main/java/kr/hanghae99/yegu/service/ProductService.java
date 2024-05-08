@@ -1,6 +1,8 @@
 package kr.hanghae99.yegu.service;
 
+import kr.hanghae99.yegu.controller.dto.ProductFeignResponseDto;
 import kr.hanghae99.yegu.domain.product.Product;
+import kr.hanghae99.yegu.dto.ProductAddRequestDto;
 import kr.hanghae99.yegu.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> findAllById(List<Long> productIds) {
-        return productRepository.findAllById(productIds);
+    public List<ProductFeignResponseDto> findAllById(List<Long> productIds) {
+        return productRepository.findAllById(productIds)
+                .stream()
+                .map(ProductFeignResponseDto::new)
+                .toList();
     }
 
     public Product findById(Long id) {
@@ -30,7 +35,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Long save(Product product) {
-        return productRepository.save(product).getId();
+    public void addProduct(ProductAddRequestDto dto) {
+        productRepository.save(dto.toEntity());
     }
 }
