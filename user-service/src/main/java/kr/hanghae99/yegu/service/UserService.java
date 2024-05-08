@@ -1,5 +1,6 @@
 package kr.hanghae99.yegu.service;
 
+import kr.hanghae99.yegu.controller.dto.UserFeignResponseDto;
 import kr.hanghae99.yegu.domain.user.User;
 import kr.hanghae99.yegu.dto.UserChangePasswordRequestDto;
 import kr.hanghae99.yegu.dto.UserResponseDto;
@@ -46,6 +47,13 @@ public class UserService {
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException());
         return new UserResponseDto(user);
+    }
+
+    public UserFeignResponseDto getUserById(Long id) {
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException());
+        return new UserFeignResponseDto(user);
     }
 
     @Transactional

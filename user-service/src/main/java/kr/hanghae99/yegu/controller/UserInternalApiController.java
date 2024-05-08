@@ -1,6 +1,6 @@
 package kr.hanghae99.yegu.controller;
 
-import kr.hanghae99.yegu.dto.UserResponseDto;
+import kr.hanghae99.yegu.controller.dto.UserFeignResponseDto;
 import kr.hanghae99.yegu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class UserInternalApiController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserFeignResponseDto> getUserById(@PathVariable Long id) {
         return ResponseEntity
-                .ok(userService.findById(id));
+                .ok(userService.getUserById(id));
     }
 }
