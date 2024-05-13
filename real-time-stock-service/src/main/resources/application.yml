@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: real-time-stock-service
+
+server:
+  port: 8084
