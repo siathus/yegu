@@ -5,6 +5,8 @@ import kr.hanghae99.yegu.domain.product.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 // TODO: 카테고리 설정
 @AllArgsConstructor
 @Getter
@@ -14,6 +16,9 @@ public class ProductAddRequestDto {
     private int stock;
     private String description;
     private String thumbnailUrl;
+    private boolean isPreorder;
+    private LocalDateTime preorderStartTime;
+    private LocalDateTime preorderEndTime;
 
     public Product toEntity() {
         return Product.builder()
@@ -22,6 +27,9 @@ public class ProductAddRequestDto {
                 .stock(stock)
                 .description(description)
                 .thumbnailUrl(thumbnailUrl)
+                .isPreorder(isPreorder)
+                .preorderStartTime(preorderStartTime)
+                .preorderEndTime(preorderEndTime)
                 .productStatus(ProductStatus.AVAILABLE)
                 .build();
     }

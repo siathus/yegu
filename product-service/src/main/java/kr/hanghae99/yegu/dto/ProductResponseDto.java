@@ -4,6 +4,8 @@ import kr.hanghae99.yegu.domain.product.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @Getter
 public class ProductResponseDto {
@@ -14,6 +16,9 @@ public class ProductResponseDto {
     private String description;
     private String thumbnailUrl;
     private String categoryName;
+    private boolean isPreorder;
+    private LocalDateTime preorderStartTime;
+    private LocalDateTime preorderEndTime;
     private String status;
 
     public ProductResponseDto(Product product) {
@@ -24,6 +29,9 @@ public class ProductResponseDto {
         this.description = product.getDescription();
         this.thumbnailUrl = product.getThumbnailUrl();
         this.categoryName = product.getCategory().getName();
+        this.isPreorder = product.isPreorder();
+        this.preorderStartTime = product.getPreorderStartTime();
+        this.preorderEndTime = product.getPreorderEndTime();
         this.status = product.getStatus().name();
     }
 }
